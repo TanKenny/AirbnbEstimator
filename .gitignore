@@ -1,4 +1,14 @@
 **/*.ipynb_checkpoints
-variable.env
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
+
+# Environment Variables
+variables.env
+
+
 package-json.lock
 

@@ -9,8 +9,13 @@ module.exports = connectToDatabase = () => {
   }
 
   console.log('=> using new database connection');
+
   return mongoose.connect(process.env.DB)
     .then(db => { 
+      // console.log(db)
       isConnected = db.connections[0].readyState;
+    })
+    .catch(err => {
+      // console.log(err);
     });
 };
