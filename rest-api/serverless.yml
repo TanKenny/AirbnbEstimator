@@ -20,7 +20,10 @@ service: AirbnbPriceEstimator # NOTE: update this with your service name
 provider:
   name: aws
   runtime: nodejs8.10
-
+  memorySize: 128 # set the maximum memory of the Lambdas in Megabytes
+  timeout: 10 # the timeout is 10 seconds (default is 6 seconds)
+  stage: dev # setting the env stage to dev, this will be visible in the routes
+  region: us-east-1
 # you can overwrite defaults here
 #  stage: dev
 #  region: us-east-1
@@ -53,15 +56,8 @@ provider:
 #  exclude:
 #    - exclude-me.js
 #    - exclude-me-dir/**
-  memorySize: 128 # set the maximum memory of the Lambdas in Megabytes
-  timeout: 10 # the timeout is 10 seconds (default is 6 seconds)
-  stage: dev # setting the env stage to dev, this will be visible in the routes
-  region: us-east-1
 
 functions:
-  hello:
-    handler: handler.hello
-
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -96,7 +92,7 @@ functions:
 #    environment:
 #      variable2: value2
 
-create:
+  create:
     handler: handler.create # point to exported create function in handler.js
     events:
       - http:
@@ -113,24 +109,24 @@ create:
   getAll:
     handler: handler.getAll # path will be domain.name.com/dev/notes
     events:
-     - http:
-         path: notes
-         method: get
-         cors: true
+      - http:
+          path: notes
+          method: get
+          cors: true
   update:
     handler: handler.update # path will be domain.name.com/dev/notes/1
     events:
-     - http:
-         path: notes/{id}
-         method: put
-         cors: true
+      - http:
+          path: notes/{id}
+          method: put
+          cors: true
   delete:
     handler: handler.delete
     events:
-     - http:
-         path: notes/{id} # path will be domain.name.com/dev/notes/1
-         method: delete
-         cors: true
+      - http:
+          path: notes/{id} # path will be domain.name.com/dev/notes/1
+          method: delete
+          cors: true
 
 # you can add CloudFormation resource templates here
 #resources:
@@ -146,4 +142,4 @@ create:
 
 
 plugins:
-- serverless-offline # adding the plugin to be able to run the offline emulation
+  - serverless-offline # adding the plugin to be able to run the offline emulation
