@@ -10,5 +10,5 @@ jspm_packages
 variables.env
 
 
-package-json.lock
+rest-api/package-json.lock
 
