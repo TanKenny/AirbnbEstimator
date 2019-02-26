@@ -7,3 +7,10 @@ The theme of this project is to create a web application that estimates the dail
 
 ## Datasets
 * [Airbnb NYC data](http://insideairbnb.com/get-the-data.html)
+
+## Backend Stack:
+    * mongoDB as our database
+    * AWS lambda to create serverless REST API
+ 
+
+
