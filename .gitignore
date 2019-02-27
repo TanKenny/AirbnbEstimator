@@ -1,6 +1,6 @@
 **/*.ipynb_checkpoints
 # package directories
-node_modules
+rest-api/node_modules
 jspm_packages
 
 # Serverless directories
