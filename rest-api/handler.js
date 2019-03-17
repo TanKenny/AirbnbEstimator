@@ -2,22 +2,22 @@
 
 require('dotenv').config({ path: './variables.env' });
 const connectToDatabase = require('./db');
-const Note = require('./models/Note');
+const Listing = require('./models/ListingSchema');
 
 module.exports.create = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   connectToDatabase()
     .then(() => {
-      Note.create(JSON.parse(event.body))
-        .then(note => callback(null, {
+      Listing.create(JSON.parse(event.body))
+        .then(listing => callback(null, {
           statusCode: 200,
-          body: JSON.stringify(note)
+          body: JSON.stringify(listing)
         }))
         .catch(err => callback(null, {
           statusCode: err.statusCode || 500,
           headers: { 'Content-Type': 'text/plain' },
-          body: 'Could not create the note.'
+          body: 'Could not create the Listing.'
         }));
     });
 };
@@ -27,15 +27,15 @@ module.exports.getOne = (event, context, callback) => {
 
   connectToDatabase()
     .then(() => {
-      Note.findById(event.pathParameters.id)
-        .then(note => callback(null, {
+      Listing.findById(event.pathParameters.id)
+        .then(listing => callback(null, {
           statusCode: 200,
-          body: JSON.stringify(note)
+          body: JSON.stringify(listing)
         }))
         .catch(err => callback(null, {
           statusCode: err.statusCode || 500,
           headers: { 'Content-Type': 'text/plain' },
-          body: 'Could not fetch the note.'
+          body: 'Could not fetch the listing.'
         }));
     });
 };
@@ -45,15 +45,15 @@ module.exports.getAll = (event, context, callback) => {
 
   connectToDatabase()
     .then(() => {
-      Note.find()
-        .then(notes => callback(null, {
+      Listing.find()
+        .then(listings => callback(null, {
           statusCode: 200,
-          body: JSON.stringify(notes)
+          body: JSON.stringify(listings)
         }))
         .catch(err => callback(null, {
           statusCode: err.statusCode || 500,
           headers: { 'Content-Type': 'text/plain' },
-          body: 'Could not fetch the notes.'
+          body: 'Could not fetch the listings.'
         }))
     });
 };
@@ -63,15 +63,15 @@ module.exports.update = (event, context, callback) => {
 
   connectToDatabase()
     .then(() => {
-      Note.findByIdAndUpdate(event.pathParameters.id, JSON.parse(event.body), { new: true })
-        .then(note => callback(null, {
+      Listing.findByIdAndUpdate(event.pathParameters.id, JSON.parse(event.body), { new: true })
+        .then(listing => callback(null, {
           statusCode: 200,
-          body: JSON.stringify(note)
+          body: JSON.stringify(listing)
         }))
         .catch(err => callback(null, {
           statusCode: err.statusCode || 500,
           headers: { 'Content-Type': 'text/plain' },
-          body: 'Could not fetch the notes.'
+          body: 'Could not update the listing.'
         }));
     });
 };
@@ -81,15 +81,15 @@ module.exports.delete = (event, context, callback) => {
 
   connectToDatabase()
     .then(() => {
-      Note.findByIdAndRemove(event.pathParameters.id)
-        .then(note => callback(null, {
+      Listing.findByIdAndRemove(event.pathParameters.id)
+        .then(listing => callback(null, {
           statusCode: 200,
-          body: JSON.stringify({ message: 'Removed note with id: ' + note._id, note: note })
+          body: JSON.stringify({ message: 'Removed listing with id: ' + listing._id, listing: listing })
         }))
         .catch(err => callback(null, {
           statusCode: err.statusCode || 500,
           headers: { 'Content-Type': 'text/plain' },
-          body: 'Could not fetch the notes.'
+          body: 'Could not fdelete the listing.'
         }));
     });
 };
