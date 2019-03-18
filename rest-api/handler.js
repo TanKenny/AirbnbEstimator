@@ -2,7 +2,7 @@
 
 require('dotenv').config({ path: './variables.env' });
 const connectToDatabase = require('./db');
-const Listing = require('./models/ListingSchema');
+const Listing = require('./Models/Listing');
 
 module.exports.create = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
@@ -12,6 +12,10 @@ module.exports.create = (event, context, callback) => {
       Listing.create(JSON.parse(event.body))
         .then(listing => callback(null, {
           statusCode: 200,
+          headers: {
+            "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
+            "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS
+          },
           body: JSON.stringify(listing)
         }))
         .catch(err => callback(null, {
@@ -30,6 +34,10 @@ module.exports.getOne = (event, context, callback) => {
       Listing.findById(event.pathParameters.id)
         .then(listing => callback(null, {
           statusCode: 200,
+          headers: {
+            "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
+            "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS
+          },
           body: JSON.stringify(listing)
         }))
         .catch(err => callback(null, {
@@ -48,6 +56,10 @@ module.exports.getAll = (event, context, callback) => {
       Listing.find()
         .then(listings => callback(null, {
           statusCode: 200,
+          headers: {
+            "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
+            "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS
+          },
           body: JSON.stringify(listings)
         }))
         .catch(err => callback(null, {
@@ -66,6 +78,10 @@ module.exports.update = (event, context, callback) => {
       Listing.findByIdAndUpdate(event.pathParameters.id, JSON.parse(event.body), { new: true })
         .then(listing => callback(null, {
           statusCode: 200,
+          headers: {
+            "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
+            "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS
+          },
           body: JSON.stringify(listing)
         }))
         .catch(err => callback(null, {
@@ -84,6 +100,10 @@ module.exports.delete = (event, context, callback) => {
       Listing.findByIdAndRemove(event.pathParameters.id)
         .then(listing => callback(null, {
           statusCode: 200,
+          headers: {
+            "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
+            "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS
+          },
           body: JSON.stringify({ message: 'Removed listing with id: ' + listing._id, listing: listing })
         }))
         .catch(err => callback(null, {

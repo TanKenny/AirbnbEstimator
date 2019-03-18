@@ -12,3 +12,4 @@ variables.env
 
 rest-api/package-json.lock
 
+secrets.json

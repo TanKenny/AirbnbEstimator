@@ -35,4 +35,4 @@ const ListingSchema = new mongoose.Schema({
   }
 });
 
-module.exports = mongoose.model('ListingSchema', ListingSchema);
+module.exports = mongoose.model('Listing', ListingSchema);
