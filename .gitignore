@@ -1,1 +1,6 @@
 **/*.ipynb_checkpoints
+
+.rest-api/node_modules/
+.rest-api/.cache/
+
+*.env
