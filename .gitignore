@@ -1,6 +1,15 @@
 **/*.ipynb_checkpoints
+# package directories
+rest-api/node_modules
+jspm_packages
 
-.rest-api/node_modules/
-.rest-api/.cache/
+# Serverless directories
+.serverless
 
-*.env
+# Environment Variables
+variables.env
+
+
+rest-api/package-json.lock
+
+secrets.json
