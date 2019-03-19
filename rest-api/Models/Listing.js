@@ -8,16 +8,15 @@ const ListingSchema = new mongoose.Schema({
     companyType: Boolean,
   },
   bedrooms: {
-    guests: Number,
-    numOfBedrooms: Number,
-    numofBedsAvailable: Number,
-    sleepingArrangements: {
-      bedrooms : [String], 
-      commonSpaces : [String]
-    }
+   guests: Number,
+   numOfBedrooms: Number,
+   numOfBedsAvailable: Number,
+   sleepingArrangements: {
+     bedrooms : [String], 
+     commonSpaces : [String]
+   }
   },
   bathrooms: Number,
-  bedrooms: Number,
   location: {
     address: String,
     apartmentNumber: String,
