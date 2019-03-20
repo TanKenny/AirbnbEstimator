@@ -12,10 +12,8 @@ module.exports = connectToDatabase = () => {
 
   return mongoose.connect(process.env.DB)
     .then(db => { 
-      // console.log(db)
       isConnected = db.connections[0].readyState;
     })
     .catch(err => {
-      // console.log(err);
     });
 };
