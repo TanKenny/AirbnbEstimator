@@ -31,6 +31,9 @@ const ListingSchema = new mongoose.Schema({
   },
   sharedSpaces: {
     spaces: [String]
+  },
+  Prediction: {
+    LinearRegression: Number
   }
 });
 

@@ -52,6 +52,13 @@ functions:
           path: listings/{id} # path will be domain.name.com/dev/listings/1
           method: delete
           cors: true
+  predict:
+    handler: handler.predict
+    events:
+      - http:
+          path: predictions/ # path will be domain.name.com/dev/listings/1
+          method: post
+          cors: true
 
 plugins:
   - serverless-offline # adding the plugin to be able to run the offline emulation
