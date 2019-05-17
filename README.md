@@ -12,6 +12,9 @@ The theme of this project is to create a web application that estimates the dail
 * Python 3.6.6
 * AWS-Sagemaker
 
+## DISCLAIMER
+* Each jupyter notebook is running on 1 seasonality (spring, summer, fall, winter) change the respective dataset to the respective season for different results. 
+
 ## Backend Stack:
     * mongoDB as our database
     * AWS lambda to create serverless REST API
