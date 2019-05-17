@@ -22,3 +22,5 @@ The theme of this project is to create a web application that estimates the dail
  
 
 
+## Note
+* Review data files were too large and surpassed git lfs limitations so they were not uploaded
