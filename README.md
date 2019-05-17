@@ -9,8 +9,8 @@ The theme of this project is to create a web application that estimates the dail
 * [Airbnb NYC data](http://insideairbnb.com/get-the-data.html)
 
 ## Dependency 
-*Python 3.6.6
-*AWS-Sagemaker
+* Python 3.6.6
+* AWS-Sagemaker
 
 ## Backend Stack:
     * mongoDB as our database
