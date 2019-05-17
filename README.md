@@ -13,6 +13,7 @@ The theme of this project is to create a web application that estimates the dail
 * AWS-Sagemaker
 
 ## DISCLAIMER
+* Since we are using Git lfs we can only have up to 2gb of store, but our datasets exceed 2gb so ignore running the [airbnb_cleaned_seasonality](https://github.com/TanKenny/AirbnbEstimator/tree/master/airbnb_cleaned_seasonality) and run the rest.
 * Each jupyter notebook is running on 1 seasonality (spring, summer, fall, winter) change the respective dataset to the respective season for different results. 
 
 ## Backend Stack:
