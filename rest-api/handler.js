@@ -1,22 +1,19 @@
 'use strict';
 
 require('dotenv').config({ path: './variables.env' });
+const aws = require('aws-sdk');
 const connectToDatabase = require('./db');
-const Listing = require('./Models/Listing');
+const Model = require('./Models/Model');
 
 module.exports.create = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   connectToDatabase()
     .then(() => {
-      Listing.create(JSON.parse(event.body))
-        .then(listing => callback(null, {
+      Model.create(JSON.parse(event.body))
+        .then(model => callback(null, {
           statusCode: 200,
-          headers: {
-            "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
-            "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS
-          },
-          body: JSON.stringify(listing)
+          body: JSON.stringify(model)
         }))
         .catch(err => callback(null, {
           statusCode: err.statusCode || 500,
@@ -26,24 +23,26 @@ module.exports.create = (event, context, callback) => {
     });
 };
 
-module.exports.getOne = (event, context, callback) => {
+module.exports.getModel = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   connectToDatabase()
     .then(() => {
-      Listing.findById(event.pathParameters.id)
-        .then(listing => callback(null, {
+      const params = JSON.parse(event.body)
+      // console.log(params)
+      Model.find(params)
+        .then(model => callback(null, {
           statusCode: 200,
           headers: {
             "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
             "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS
           },
-          body: JSON.stringify(listing)
+          body: JSON.stringify(model)
         }))
         .catch(err => callback(null, {
           statusCode: err.statusCode || 500,
           headers: { 'Content-Type': 'text/plain' },
-          body: 'Could not fetch the listing.'
+          body: 'Could not fetch the model.'
         }));
     });
 };
@@ -53,63 +52,19 @@ module.exports.getAll = (event, context, callback) => {
 
   connectToDatabase()
     .then(() => {
-      Listing.find()
-        .then(listings => callback(null, {
+      Model.find()
+        .then(models => callback(null, {
           statusCode: 200,
           headers: {
             "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
             "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS
           },
-          body: JSON.stringify(listings)
+          body: JSON.stringify(models)
         }))
         .catch(err => callback(null, {
           statusCode: err.statusCode || 500,
           headers: { 'Content-Type': 'text/plain' },
           body: 'Could not fetch the listings.'
         }))
-    });
-};
-
-module.exports.update = (event, context, callback) => {
-  context.callbackWaitsForEmptyEventLoop = false;
-
-  connectToDatabase()
-    .then(() => {
-      Listing.findByIdAndUpdate(event.pathParameters.id, JSON.parse(event.body), { new: true })
-        .then(listing => callback(null, {
-          statusCode: 200,
-          headers: {
-            "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
-            "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS
-          },
-          body: JSON.stringify(listing)
-        }))
-        .catch(err => callback(null, {
-          statusCode: err.statusCode || 500,
-          headers: { 'Content-Type': 'text/plain' },
-          body: 'Could not update the listing.'
-        }));
-    });
-};
-
-module.exports.delete = (event, context, callback) => {
-  context.callbackWaitsForEmptyEventLoop = false;
-
-  connectToDatabase()
-    .then(() => {
-      Listing.findByIdAndRemove(event.pathParameters.id)
-        .then(listing => callback(null, {
-          statusCode: 200,
-          headers: {
-            "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
-            "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS
-          },
-          body: JSON.stringify({ message: 'Removed listing with id: ' + listing._id, listing: listing })
-        }))
-        .catch(err => callback(null, {
-          statusCode: err.statusCode || 500,
-          headers: { 'Content-Type': 'text/plain' },
-          body: 'Could not fdelete the listing.'
-        }));
     });
 };
